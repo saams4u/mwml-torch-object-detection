@@ -106,7 +106,7 @@ def create_data_lists(voc07_path, voc12_path, output_folder):
     n_objects = 0
 
     # Find IDs of images in the test data
-    with open(os.path.join(voc07_path, 'ImageSets/Main/test.txt')) as f:
+    with open(os.path.join(voc07_path, 'ImageSets/Main/val.txt')) as f:
         ids = f.read().splitlines()
 
     for id in ids:

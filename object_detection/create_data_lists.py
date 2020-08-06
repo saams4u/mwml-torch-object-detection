@@ -3,6 +3,6 @@
 from utils import create_data_lists
 
 if __name__ == '__main__':
-    create_data_lists(voc07_path='../datasets/voc/VOC2007',
-                      voc12_path='../datasets/voc/VOC2012',
+    create_data_lists(voc07_path='../datasets/voc/VOC_devkit/VOC2007',
+                      voc12_path='../datasets/voc/VOC_devkit/VOC2012',
                       output_folder='../saved_lists')
