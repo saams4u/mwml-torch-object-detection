@@ -1,13 +1,13 @@
 import os
-from fastapi import FastAPI
-from fastapi import Path
-from fastapi.responses import RedirectResponse
-from http import HTTPStatus
 import json
-from pydantic import BaseModel
 
-from object_detection import config
-from object_detection import utils
+from pydantic import BaseModel
+from http import HTTPStatus
+
+from object_detection import config, utils
+
+from fastapi import FastAPI, Path
+from fastapi.responses import RedirectResponse
 
 
 app = FastAPI(
