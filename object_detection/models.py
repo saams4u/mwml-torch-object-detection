@@ -498,8 +498,8 @@ class SSD300(nn.Module):
                     # The max operation retains previously suppressed boxes, like an 'OR' operation
 
                     condition = overlap[box] > max_overlap
-                	condition = torch.tensor(condition, dtype=torch.uint8).to(device)
-                	suppress = torch.max(suppress, condition)
+                    condition = torch.tensor(condition, dtype=torch.uint8).to(device)
+                    suppress = torch.max(suppress, condition)
 
                     # Don't suppress this box, even though it has an overlap of 1 with itself
                     suppress[box] = 0
