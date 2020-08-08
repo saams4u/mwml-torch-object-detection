@@ -11,6 +11,8 @@ import numpy as np
 import sys
 sys.path.insert(0,'.')
 
+from train import *
+
 """
 How to support a new layer type:
  layer_name=log.add_layer(layer_type_name)
@@ -775,16 +777,16 @@ except:
         t.expand_as = _expand_as
 
 
-def trans_net(net,input_var,name='TransferedPytorchModel'):
+def trans_net(net, input_var, name='TransferedPytorchModel'):
     print('Starting Transform, This will take a while')
     log.init([input_var])
-    log.cnet.net.name=name
+    log.cnet.net.name = name
     log.cnet.net.input.extend([log.blobs(input_var)])
     log.cnet.net.input_dim.extend(input_var.size())
     global NET_INITTED
     NET_INITTED=True
-    for name,layer in net.named_modules():
-        layer_names[layer]=name
+    for name, layer in net.named_modules():
+        layer_names[layer] = name
     print("torch ops name:", layer_names)
     out = net.forward(input_var)
     print('Transform Completed')
@@ -796,14 +798,16 @@ def save_prototxt(save_name):
 def save_caffemodel(save_name):
     log.cnet.save(save_name)
 
-
 if __name__=='__main__':
-    name='ssd300'
-    checkpoint = '../checkpoints/checkpoint_ssd300.pth.tar'
-    net = torch.load(checkpoint)
+    name = 'vgg16_ssd300'
+    file = '../checkpoints/checkpoint_ssd300.pth.tar'
+    checkpoint = torch.load(file)
 
-    input = Variable(torch.ones([1,3,300,300]))
+    model = checkpoint['model']
+    model = model.to(device)
+
+    input = Variable(torch.ones([batch_size, 3, 224, 224]))
     
-    torch_to_caffe.trans_net(net, input, name)
-    torch_to_caffe.save_prototxt('{}.prototxt'.format(name))
-    torch_to_caffe.save_caffemodel('{}.caffemodel'.format(name))
+    trans_net(model, input, name)
+    save_prototxt('{}.prototxt'.format(name))
+    save_caffemodel('{}.caffemodel'.format(name))

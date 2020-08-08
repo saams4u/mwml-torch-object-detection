@@ -92,14 +92,14 @@ def detect(original_image, min_score, max_overlap, top_k, suppress=None):
         draw.rectangle(xy=textbox_location, fill=label_color_map[det_labels[i]])
         draw.text(xy=text_location, text=det_labels[i].upper(), fill='white',
                   font=font)
-    del draw
+    # del draw
 
     return annotated_image
 
-
+    
 if __name__ == '__main__':
     img_path = '../datasets/voc/VOCdevkit/VOC2007/JPEGImages/000005.jpg'
     original_image = Image.open(img_path, mode='r')
     original_image = original_image.convert('RGB')
-    detect(original_image, min_score=0.2, max_overlap=0.5, top_k=200)
-    # detect(original_image, min_score=0.2, max_overlap=0.5, top_k=200).show()
+    # detect(original_image, min_score=0.2, max_overlap=0.5, top_k=200)
+    detect(original_image, min_score=0.2, max_overlap=0.5, top_k=200).show()
